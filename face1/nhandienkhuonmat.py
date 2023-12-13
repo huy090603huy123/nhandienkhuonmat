@@ -68,6 +68,6 @@ if __name__ == "__main__":
         'pwd': '123456'
     }
 
-    recognizer_path = "recognizer\\trainningData.yml"
+    recognizer_path = "recognizer\\trainingData.yml"
     face_recognizer = FaceRecognizer(database_config, recognizer_path)
     face_recognizer.recognize_faces()

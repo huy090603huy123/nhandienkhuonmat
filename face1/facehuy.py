@@ -85,7 +85,7 @@ while True:
         cv2.imshow('frame', img)
     if cv2.waitKey(100) & 0xFF == ord('q'):
         break
-    elif sampleNum > 10:
+    elif sampleNum > 100:
         break
 
 cam.release()

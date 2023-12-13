@@ -27,3 +27,4 @@ Ids,faces=getImagesAndLabels(path)
 recognizer.train(faces,np.array(Ids))
 recognizer.save('recognizer/trainningData.yml')
 cv2.destroyAllWindows()
+

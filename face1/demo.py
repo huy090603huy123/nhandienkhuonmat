@@ -1,157 +1,89 @@
-from PyQt6 import QtCore, QtGui, QtWidgets
 import cv2
 import pyodbc
-
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(210, 30, 321, 51))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setUnderline(True)
-        font.setWeight(75)
-        self.label.setFont(font)
-        self.label.setObjectName("label")
-        self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(120, 90, 321, 231))
-        self.groupBox.setObjectName("groupBox")
-        self.id = QtWidgets.QLineEdit(self.groupBox)
-        self.id.setGeometry(QtCore.QRect(110, 30, 161, 20))
-        self.id.setObjectName("id")
-        self.label_2 = QtWidgets.QLabel(self.groupBox)
-        self.label_2.setGeometry(QtCore.QRect(40, 30, 47, 21))
-        self.label_2.setObjectName("label_2")
-        self.label_3 = QtWidgets.QLabel(self.groupBox)
-        self.label_3.setGeometry(QtCore.QRect(20, 70, 71, 20))
-        self.label_3.setObjectName("label_3")
-        self.label_4 = QtWidgets.QLabel(self.groupBox)
-        self.label_4.setGeometry(QtCore.QRect(30, 110, 47, 13))
-        self.label_4.setObjectName("label_4")
-        self.hoten = QtWidgets.QLineEdit(self.groupBox)
-        self.hoten.setGeometry(QtCore.QRect(110, 70, 161, 20))
-        self.hoten.setObjectName("hoten")
-        self.label_5 = QtWidgets.QLabel(self.groupBox)
-        self.label_5.setGeometry(QtCore.QRect(30, 150, 47, 13))
-        self.label_5.setObjectName("label_5")
-        self.tuoi = QtWidgets.QLineEdit(self.groupBox)
-        self.tuoi.setGeometry(QtCore.QRect(110, 140, 161, 20))
-        self.tuoi.setObjectName("tuoi")
-        self.nam = QtWidgets.QRadioButton(self.groupBox)
-        self.nam.setGeometry(QtCore.QRect(110, 110, 82, 17))
-        self.nam.setObjectName("nam")
-        self.nu = QtWidgets.QRadioButton(self.groupBox)
-        self.nu.setGeometry(QtCore.QRect(190, 110, 82, 17))
-        self.nu.setObjectName("nu")
-        self.pushButton = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton.setGeometry(QtCore.QRect(140, 180, 101, 41))
-        self.pushButton.setObjectName("pushButton")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
-
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
+import sys
+from PyQt5 import QtWidgets, QtGui, QtCore
+from PIL import Image, ImageTk
+from GU import Ui_MainWindow
+from PyQt5.QtWidgets import QMessageBox
+import subprocess
+class khuonmat(QtWidgets.QMainWindow, Ui_MainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
         # Connect to SQL Server
-        conn_str = (
+        self.conn_str = (
             r'DRIVER={ODBC Driver 17 for SQL Server};'
             r'SERVER=DESKTOP-2F3KP2O;'
             r'DATABASE=FaceRecognitionDB;'
             r'UID=khuonmat;'
             r'PWD=123456;'
         )
-
         try:
-            self.conn = pyodbc.connect(conn_str)
-            print("Connected to SQL")
+            self.conn = pyodbc.connect(self.conn_str)
+            print("Đang kết nối tới SQL Server")
         except pyodbc.Error as ex:
-            print(f"Error connecting to SQL: {ex}")
-            exit(1)
+            print(f"Lôi kết nối đến CSDL: {ex}")
+            sys.exit(1)
 
-        self.pushButton.clicked.connect(self.insertOrUpdate)
+        self.detector = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+        #url="http://172.20.10.2:4747/video" #ket noi den camera       
+        self.cam = cv2.VideoCapture(0)
+        self.pushButton.clicked.connect(self.on_capture_button_click)
+        
+        self.xoa.clicked.connect(self.xoasql)
+        self.sql.cellClicked.connect(self.cellclick)
+        self.sua.clicked.connect(self.suasql)
+        self.pushButton_2.clicked.connect(self.thoat)
+        self.Back.clicked.connect(self.quaylai)
+        self.quet.clicked.connect(self.quetmat)
+        
+        self.hienthi()
 
-    def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "Phần Mềm Nhận Diện Khuôn Mặt"))
-        self.groupBox.setTitle(_translate("MainWindow", "Thông Tin Người "))
-        self.label_2.setText(_translate("MainWindow", "Nhập ID"))
-        self.label_3.setText(_translate("MainWindow", "Nhập Họ Tên"))
-        self.label_4.setText(_translate("MainWindow", "Giới Tính"))
-        self.label_5.setText(_translate("MainWindow", "Nhập Tuổi"))
-        self.nam.setText(_translate("MainWindow", "Nam"))
-        self.nu.setText(_translate("MainWindow", "Nữ"))
-        self.pushButton.setText(_translate("MainWindow", "Thêm"))
+    def reset_and_reload_form(self):
+        self.reset_form()
+        self.hienthi()
 
-    def insertOrUpdate(self):
-        # Get user information
-        user_id, ok = QtWidgets.QInputDialog.getInt(
-            self.centralwidget, 'Enter ID', 'Enter user ID (CCCD):', min=1)
-        if not ok:
-            return
+    def reset_form(self):
+        # Clear input fields and reset any other components as needed
+        self.id.clear()
+        self.hoten.clear()
+        self.tuoi.clear()
+        self.nam.setChecked(False)
+        self.nu.setChecked(False)
 
-        user_name, ok = QtWidgets.QInputDialog.getText(
-            self.centralwidget, 'Enter Name', 'Enter user name:')
-        if not ok:
-            return
 
-        user_age, ok = QtWidgets.QInputDialog.getInt(
-            self.centralwidget, 'Enter Age', 'Enter user age:', min=0)
-        if not ok:
-            return
+    def quetmat(self):         
+        subprocess.run(["python", r"D:\BAP TAP Python\face1\demotraining.py"]) 
 
-        items = ['Nam', 'Nữ']
-        user_gender, ok = QtWidgets.QInputDialog.getItem(
-            self.centralwidget, 'Select Gender', 'Select user gender:', items, 0, False)
-        if not ok:
-            return
+    def quaylai(self):
+        self.hide()  # Hide the current window
+        subprocess.run(["python", r"D:\BAP TAP Python\face1\main.py"])
+        sys.exit()
+    def load(self):
+        self.hide()  # Hide the current window
+        subprocess.run(["python", r"D:\BAP TAP Python\face1\demo.py"])
+        sys.exit()
 
-        # Update UI for capturing
-        self.label.setText("Capturing Face. Please look at the camera.")
-        self.pushButton.setEnabled(False)
+    def thoat (self):
+        self.close()
 
-        # Perform face capture
-        sample_num = 0
-        cam = cv2.VideoCapture(0)
-        detector = cv2.CascadeClassifier(
-            cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    def hienthi(self):
+        cursor = self.conn.cursor()
+        try:
+            cmd = "SELECT * FROM People"
+            cursor.execute(cmd)
+            rows = cursor.fetchall()
+            self.sql.clearContents()
+            self.sql.setRowCount(0)
+            self.sql.setRowCount(len(rows))            
+            for i, row in enumerate(rows):
+                for j, value in enumerate(row):
+                    item = QtWidgets.QTableWidgetItem(str(value))
+                    self.sql.setItem(i, j, item)
+        except pyodbc.Error as ex:
+            print(f"Lỗi lấy dữ liệu từ cơ sở dữ liệu: {ex}")
 
-        while True:
-            ret, img = cam.read()
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            faces = detector.detectMultiScale(gray, 1.3, 5)
-
-            for (x, y, w, h) in faces:
-                cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
-                sample_num += 1
-                cv2.imwrite(f"dataset/User.{user_id}.{str(sample_num)}.jpg",
-                            gray[y:y + h, x:x + w])
-                cv2.imshow('frame', img)
-
-            if cv2.waitKey(100) & 0xFF == ord('q') or sample_num > 10:
-                break
-
-        cam.release()
-        cv2.destroyAllWindows()
-
-        # Update UI after capture
-        self.label.setText("Face captured successfully.")
-        self.pushButton.setEnabled(True)
-
-        # Update database
-        self.insertOrUpdateDatabase(user_id, user_name, user_age, user_gender)
-
-    def insertOrUpdateDatabase(self, Id, Name, Age, Gender):
+    def Them(self, Id, Name, Age, Gender):
         cursor = self.conn.cursor()
         try:
             cmd = "SELECT * FROM People WHERE ID = ?"
@@ -166,15 +98,114 @@ class Ui_MainWindow(object):
                 cursor.execute(cmd, (Id, Name, Age, Gender))
 
             self.conn.commit()
+            
         except pyodbc.Error as ex:
-            print(f"Error in the database: {ex}")
+            print(f"Lỗi CSDL: {ex}")
+
+    def cellclick(self, row, column):
+        
+        id_item = self.sql.item(row, 0)
+        name_item = self.sql.item(row, 1)
+        age_item = self.sql.item(row, 2)
+        gender_item = self.sql.item(row, 3)
+
+        if id_item:
+            self.id.setText(id_item.text())
+        if name_item:
+            self.hoten.setText(name_item.text())
+        if age_item:
+            self.tuoi.setText(age_item.text())
+        if gender_item:
+            if gender_item.text().lower() == 'nam':
+                self.nam.setChecked(True)
+            elif gender_item.text().lower() == 'nữ':
+                self.nu.setChecked(True)
+
+    def xoasql(self):
+        selected_row = self.sql.currentRow()
+        if selected_row >= 0:
+            id_item = self.sql.item(selected_row, 0)
+            if id_item:
+                id = int(id_item.text())
+                cursor = self.conn.cursor()
+                try:
+                    cmd = "DELETE FROM People WHERE ID = ?"
+                    cursor.execute(cmd, (id,))
+                    self.conn.commit()
+                    self.hienthi()
+                except pyodbc.Error as ex:
+                    print(f"Lỗi Xóa dữ liệu từ cơ sở dữ liệu: {ex}")
+        else:
+            QMessageBox.warning(self, "Cảnh Báo", "Không Có ROW.", QMessageBox.StandardButton.Ok)  
+
+
+    def suasql(self):
+        id = self.id.text()
+        name = self.hoten.text()
+        age = self.tuoi.text()
+        gender = 'Nam' if self.nam.isChecked() else 'Nữ'
+
+        self.Them(id, name, age, gender)
+        self.hienthi()
+
+    def capture_images(self, user_id):
+        sample_num = 0
+        while True:         
+            ret, img = self.cam.read()          
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            faces = self.detector.detectMultiScale(gray, 1.3, 5)
+            for (x, y, w, h) in faces:
+                cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+                sample_num += 1
+                img_filename = f"dataset/User.{user_id}.{str(sample_num)}.jpg"
+                cv2.imwrite(img_filename, gray[y:y + h, x:x + w])
+                cv2.imshow('frame', img)
+            if cv2.waitKey(100) & 0xFF == ord('q'):
+                break
+            elif sample_num > 10:
+                break
+        self.cam.release()
+        cv2.destroyAllWindows()
+
+    def on_capture_button_click(self):
+        try:
+            user_id = int(self.id.text())
+            if user_id <= 0:
+                raise ValueError("ID phải là số nguyên dương.")
+
+            user_name = self.hoten.text().strip()
+            if not user_name or any(char.isdigit() for char in user_name):
+                raise ValueError("Tên không hợp lệ. Tên không được để trống và không được chứa chữ số.")
+
+            user_age = int(self.tuoi.text())
+            if user_age < 0:
+                raise ValueError("Tuổi phải là số nguyên không âm.")
+
+            user_gender = "Nam" if self.nam.isChecked() else "Nữ"
+
+            self.Them(user_id, user_name, user_age, user_gender)
+
+            self.capture_images(user_id)
+
+            self.load()         
+            self.hienthi()
+        except ValueError as ve:
+            
+            error_message = f"Error: {ve}"
+            QMessageBox.critical(self, "Error", error_message, QMessageBox.StandardButton.Ok)
+
+        except pyodbc.Error as ex:          
+            error_message = f"Lỗi: {ex}"
+            QMessageBox.critical(self, "Lỗi", error_message, QMessageBox.StandardButton.Ok)
+
+       
+    def closeEvent(self, event):
+        if self.conn:
+            self.conn.commit()
+            self.conn.close()
 
 if __name__ == "__main__":
-    import sys
     app = QtWidgets.QApplication(sys.argv)
-
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    mainWindow = khuonmat()
+    mainWindow.show()
     sys.exit(app.exec())

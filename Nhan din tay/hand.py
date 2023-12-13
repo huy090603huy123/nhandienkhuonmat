@@ -39,5 +39,5 @@ while True:
     # Hiển thị khung hình
     cv2.imshow("MediaPipe Hands", frame)
 
-    # Bắt đầu lại vòng lặp nếu người dùng nhấn phím Esc
+    
  
