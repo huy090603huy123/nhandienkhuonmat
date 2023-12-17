@@ -159,10 +159,10 @@ class khuonmat(QtWidgets.QMainWindow, Ui_MainWindow):
                 sample_num += 1
                 img_filename = f"dataset/User.{user_id}.{str(sample_num)}.jpg"
                 cv2.imwrite(img_filename, gray[y:y + h, x:x + w])
-                cv2.imshow('frame', img)
+                cv2.imshow('Khuôn Mặt', img)
             if cv2.waitKey(100) & 0xFF == ord('q'):
                 break
-            elif sample_num > 10:
+            elif sample_num > 100:
                 break
         self.cam.release()
         cv2.destroyAllWindows()

@@ -117,6 +117,11 @@ class Ui_MainWindow(object):
 "")
         self.pushButton.setText("")
         self.pushButton.setObjectName("pushButton")
+        self.chatbox = QtWidgets.QPushButton(self.centralwidget)
+        self.chatbox.setGeometry(QtCore.QRect(700, 490, 51, 51))
+        self.chatbox.setStyleSheet("border-image: url(:/pic/istockphoto-1133721644-170667a.jpg);")
+        self.chatbox.setText("")
+        self.chatbox.setObjectName("chatbox")
         self.camera.raise_()
         self.P1.raise_()
         self.P2.raise_()
@@ -126,6 +131,7 @@ class Ui_MainWindow(object):
         self.label_5.raise_()
         self.label.raise_()
         self.pushButton.raise_()
+        self.chatbox.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -145,7 +151,7 @@ class Ui_MainWindow(object):
 "</style></head><body style=\" font-family:\'Palatino Linotype\'; font-size:24pt; font-weight:600; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:28pt; font-style:italic; color:#990000;\">TRANG CHỦ</span></p></body></html>"))
         self.label_4.setText(_translate("MainWindow", "Hình Người Quản Lý"))
-        
+
 import hinhanh
 
 

@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="Test2">
+    <file>arrow-24916_640.png</file>
+  </qresource>
+</RCC>
