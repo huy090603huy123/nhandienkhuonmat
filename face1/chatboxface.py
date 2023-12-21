@@ -11,31 +11,38 @@ class ChatMainWindow(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.pushButton.clicked.connect(self.send_message)
-        openai.api_key = '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'
+        openai.api_key = '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'
         self.model = QStandardItemModel()
         self.listView.setModel(self.model)
-
-
         greeting = "Nhân Viên: Xin chào! Tôi Là Nhân Viên Ảo của Phần Mềm\n Nếu có Thắc Mắc Gì Về CAMERA Hãy Liên Hệ \n SDT:0523125184"
         self.model.appendRow(QStandardItem(greeting))
         text_edit_font = QFont("Times New Roman", 13)  
-        text_edit_color = QColor("black")  
+        text_edit_color = QColor("Black")  
         self.textEdit.setFont(text_edit_font)
         self.textEdit.setTextColor(text_edit_color)
         list_view_font = QFont("Times New Roman", 13)  
-        list_view_color = QColor("red")  
+        list_view_color = QColor("Orange")  
 
         self.listView.setFont(list_view_font)
         self.listView.setStyleSheet(f"color: {list_view_color.name()}")  
-
+        self.predefined_responses = {
+    "cách sử dụng phần mềm": "\nBước 1: Mở ứng dụng Nhận Diện Khuôn Mặt\nBước 2: Đăng Nhập bằng Việc Đưa mặt vào\nBước 3: Nhấn Vào Bổ Sung Người Để Thêm\n Bước 4 Nhập thông tin và chụp hình sau đó quét mặt\n Bước 5 Vào CAMERA để xem người Đó ",
+    "yêu cầu hỗ trợ kỹ thuật": "\nĐể nhận hỗ trợ kỹ thuật, \nvui lòng liên hệ đường dây nóng: 0523125184\n Hổ Trợ: Nguyễn Nhật Huy"
+   
+        }
 
     def send_message(self):
         user_input = self.textEdit.toPlainText()
-        if user_input.strip() != "":           
-            response = self.generate_openai_response(user_input)        
+        if user_input.strip() != "":   
+            if user_input in self.predefined_responses:
+                response = self.predefined_responses[user_input]
+            else:
+               
+                response = self.generate_openai_response(user_input)        
+                
             you_item = QStandardItem("You: " + user_input)
             you_item.setFont(QFont("Times New Roman", 13))
-            you_item.setForeground(QColor("black"))
+            you_item.setForeground(QColor("white"))
             self.model.appendRow(you_item)
 
             bot_item = QStandardItem("Nhân Viên: " + response)

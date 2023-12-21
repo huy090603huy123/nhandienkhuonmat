@@ -167,6 +167,9 @@
        <height>41</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="text">
       <string>Thêm</string>
      </property>
@@ -219,50 +222,78 @@
       <x>350</x>
       <y>330</y>
       <width>75</width>
-      <height>41</height>
+      <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/TestGU/edit-159218_1280.png);</string>
+    </property>
     <property name="text">
-     <string>Sửa</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="xoa">
     <property name="geometry">
      <rect>
-      <x>430</x>
+      <x>440</x>
       <y>330</y>
       <width>75</width>
-      <height>41</height>
+      <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/TestGU/tải xuống (1).png);</string>
+    </property>
     <property name="text">
-     <string>Xóa</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="Back">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>530</x>
       <y>330</y>
       <width>75</width>
-      <height>41</height>
+      <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/TestGU/kisspng-computer-icons-computer-software-information-jenza-button-back-5b34f2f9a332c4.1314139515301967296685.png);</string>
+    </property>
     <property name="text">
-     <string>Quay Lại</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>620</x>
       <y>330</y>
+      <width>91</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/TestGU/pngtree-original-design-emergency-exit-sign-green-png-image_4401969.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="load1">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>80</y>
       <width>75</width>
       <height>41</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/TestGU/reset-icon-614x460.png);</string>
+    </property>
     <property name="text">
-     <string>Thoát</string>
+     <string/>
     </property>
    </widget>
   </widget>
@@ -278,6 +309,8 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="TestGU.qrc"/>
+ </resources>
  <connections/>
 </ui>

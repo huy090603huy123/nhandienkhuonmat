@@ -11,7 +11,9 @@ class FaceRecognizer:
         self.fontscale = 1
         self.fontcolor = (203, 23, 252)
         self.fontface = cv2.FONT_HERSHEY_DUPLEX
-        # Connect to SQL Server
+
+        self.face_count = 0
+        
         self.conn_str = (
             f"DRIVER={database_config['driver']};"
             f"SERVER={database_config['server']};"
@@ -28,23 +30,37 @@ class FaceRecognizer:
             print(f"Lỗi CSDL: {ex}")
             exit(1)
 
+    def face(self):
+        return self.face_count
+    
+    def increment_face_count(self):
+        self.face_count += 1
+
+
+    def reset_face_count(self):
+        self.face_count = 0
+
     def get_profile(self, user_id):
         cmd = "SELECT * FROM People WHERE ID = ?"
         self.cursor.execute(cmd, (user_id,))
         return self.cursor.fetchone()
 
     def recognize_faces(self):
+        #url="http://192.168.1.67:4747/video"
         cam = cv2.VideoCapture(0)
         while True:
             ret, img = cam.read()
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            faces = self.face_cascade.detectMultiScale(gray, 1.3, 5)
+            faces = self.face_cascade.detectMultiScale(gray, 1.3, 5) # Sử dụng Cascade Classifier  phát hiện khuôn mătJ
+            self.reset_face_count()
             for (x, y, w, h) in faces:
                 cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
                 user_id, conf = self.recognizer.predict(gray[y:y + h, x:x + w])
                 profile = self.get_profile(user_id)                
                 accuracy_threshold = 60  
+                self.increment_face_count() 
                 if conf < accuracy_threshold and profile:
+                    
                     cv2.putText(img, "Ten: " + str(profile[1]), (x, y + h + 30), self.fontface, self.fontscale,
                                 self.fontcolor, 2)
                     cv2.putText(img, "Tuoi: " + str(profile[2]), (x, y + h + 60), self.fontface, self.fontscale,
@@ -58,6 +74,10 @@ class FaceRecognizer:
                                 self.fontcolor, 2)
                     cv2.putText(img, f"Ti Le Giong: {100 - conf:.2f}%", (x, y - 10), self.fontface, self.fontscale,
                                 self.fontcolor, 2)
+                    
+
+            cv2.putText(img, f" SO NGUOI: {self.face()}", (10, 50), self.fontface, self.fontscale,
+                        self.fontcolor, 2)
             cv2.putText(img, "Press 'Q' to exit", (10, 20), self.fontface, self.fontscale,
                         self.fontcolor, 2)
             cv2.imshow('CAMERA AN NINH', img)

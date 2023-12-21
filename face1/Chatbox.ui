@@ -6,38 +6,41 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>410</width>
-    <height>504</height>
+    <width>414</width>
+    <height>503</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Tư Vấn Khách Hàng</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
+   <string notr="true">border-image: url(:/Test2/pngtree-chatbot-concept-background-with-a-robot-operating-a-laptop-image_334235.jpg);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>400</y>
-      <width>351</width>
+      <x>20</x>
+      <y>420</y>
+      <width>331</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/Test2/Mau-trang-la-gi-Y-nghia-cua-mau-trang-trong-cac-linh-vuc.jpg);</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
       <x>360</x>
-      <y>400</y>
+      <y>420</y>
       <width>41</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/Test2/arrow-24916_640.png);</string>
+     <string notr="true">image: url(:/Test2/kisspng-computer-icons-web-development-button-download-send-email-button-5ad77a8f74e821.1317447115240710554789.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -47,25 +50,18 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>10</y>
       <width>411</width>
-      <height>481</height>
+      <height>491</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
    </widget>
    <zorder>listView</zorder>
    <zorder>textEdit</zorder>
    <zorder>pushButton</zorder>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>410</width>
-     <height>21</height>
-    </rect>
-   </property>
   </widget>
  </widget>
  <resources>

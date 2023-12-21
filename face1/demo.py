@@ -26,7 +26,8 @@ class khuonmat(QtWidgets.QMainWindow, Ui_MainWindow):
             sys.exit(1)
 
         self.detector = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-        #url="http://172.20.10.2:4747/video" #ket noi den camera       
+        #url="http://172.20.10.2:4747/video" #ket noi den camera  
+        #url="http://192.168.1.67:4747/video"     
         self.cam = cv2.VideoCapture(0)
         self.pushButton.clicked.connect(self.on_capture_button_click)
         
@@ -36,21 +37,9 @@ class khuonmat(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_2.clicked.connect(self.thoat)
         self.Back.clicked.connect(self.quaylai)
         self.quet.clicked.connect(self.quetmat)
-        
+        self.load1.clicked.connect(self.load)
+
         self.hienthi()
-
-    def reset_and_reload_form(self):
-        self.reset_form()
-        self.hienthi()
-
-    def reset_form(self):
-        # Clear input fields and reset any other components as needed
-        self.id.clear()
-        self.hoten.clear()
-        self.tuoi.clear()
-        self.nam.setChecked(False)
-        self.nu.setChecked(False)
-
 
     def quetmat(self):         
         subprocess.run(["python", r"D:\BAP TAP Python\face1\demotraining.py"]) 
@@ -162,7 +151,7 @@ class khuonmat(QtWidgets.QMainWindow, Ui_MainWindow):
                 cv2.imshow('Khuôn Mặt', img)
             if cv2.waitKey(100) & 0xFF == ord('q'):
                 break
-            elif sample_num > 100:
+            elif sample_num > 250:
                 break
         self.cam.release()
         cv2.destroyAllWindows()

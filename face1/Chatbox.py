@@ -14,29 +14,27 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(410, 504)
-        MainWindow.setStyleSheet("background-color: rgb(255, 255, 255);")
+        MainWindow.resize(414, 503)
+        MainWindow.setStyleSheet("border-image: url(:/Test2/pngtree-chatbot-concept-background-with-a-robot-operating-a-laptop-image_334235.jpg);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(0, 400, 351, 41))
+        self.textEdit.setGeometry(QtCore.QRect(20, 420, 331, 41))
+        self.textEdit.setStyleSheet("border-image: url(:/Test2/Mau-trang-la-gi-Y-nghia-cua-mau-trang-trong-cac-linh-vuc.jpg);")
         self.textEdit.setObjectName("textEdit")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(360, 400, 41, 31))
-        self.pushButton.setStyleSheet("border-image: url(:/Test2/arrow-24916_640.png);")
+        self.pushButton.setGeometry(QtCore.QRect(360, 420, 41, 41))
+        self.pushButton.setStyleSheet("image: url(:/Test2/kisspng-computer-icons-web-development-button-download-send-email-button-5ad77a8f74e821.1317447115240710554789.png);")
         self.pushButton.setText("")
         self.pushButton.setObjectName("pushButton")
         self.listView = QtWidgets.QListView(self.centralwidget)
-        self.listView.setGeometry(QtCore.QRect(0, 0, 411, 481))
+        self.listView.setGeometry(QtCore.QRect(0, 10, 411, 491))
+        self.listView.setStyleSheet("")
         self.listView.setObjectName("listView")
         self.listView.raise_()
         self.textEdit.raise_()
         self.pushButton.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 410, 21))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -44,8 +42,9 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Tư Vấn Khách Hàng"))
-        
-import hinhanh2
+import hinhanh5
+
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
