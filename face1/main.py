@@ -14,6 +14,7 @@ def homeui():
     ui.camera.clicked.connect(y)
     ui.chatbox.clicked.connect(c)
     ui.thoat.clicked.connect(sys.exit)
+    ui.url.clicked.connect(u)
     MainWindow.show()
 
 def x():   
@@ -21,13 +22,16 @@ def x():
 
 def papeGU():
     MainWindow.hide()
-    subprocess.run(["python", r"D:\BAP TAP Python\face1\demo.py"])
+    subprocess.run(["python", r"D:\BAP TAP Python\face1\FB1.py"])
 
 def y(): 
     subprocess.run(["python", r"D:\BAP TAP Python\face1\TestFaceTiLe.py"])
 
 def c(): 
     subprocess.run(["python", r"D:\BAP TAP Python\face1\chatboxface.py"])
+
+def u(): 
+    subprocess.run(["python", r"D:\BAP TAP Python\face1\FB2.py"])
 
 homeui()
 sys.exit(app.exec_())

@@ -47,6 +47,7 @@ class FaceRecognizer:
 
     def recognize_faces(self):
         #url="http://192.168.1.67:4747/video"
+        url="http://10.15.46.101:4747/video"
         cam = cv2.VideoCapture(0)
         while True:
             ret, img = cam.read()
@@ -92,7 +93,7 @@ if __name__ == "__main__":
     database_config = {
         'driver': 'ODBC Driver 17 for SQL Server',
         'server': 'DESKTOP-2F3KP2O',
-        'database': 'FaceRecognitionDB',
+        'database': 'Face',
         'uid': 'khuonmat',
         'pwd': '123456'
     }

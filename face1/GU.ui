@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>782</width>
+    <width>906</width>
     <height>436</height>
    </rect>
   </property>
@@ -42,9 +42,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>120</y>
+      <y>70</y>
       <width>321</width>
-      <height>231</height>
+      <height>321</height>
      </rect>
     </property>
     <property name="title">
@@ -162,7 +162,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>180</y>
+       <y>240</y>
        <width>161</width>
        <height>41</height>
       </rect>
@@ -178,7 +178,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>180</y>
+       <y>240</y>
        <width>71</width>
        <height>41</height>
       </rect>
@@ -187,13 +187,36 @@
       <string>Quét</string>
      </property>
     </widget>
+    <widget class="QLineEdit" name="fb">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>190</y>
+       <width>161</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>190</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>URL Cá Nhân</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QTableWidget" name="sql">
     <property name="geometry">
      <rect>
       <x>350</x>
       <y>130</y>
-      <width>421</width>
+      <width>531</width>
       <height>191</height>
      </rect>
     </property>
@@ -204,13 +227,14 @@
      <number>5</number>
     </property>
     <property name="columnCount">
-     <number>4</number>
+     <number>5</number>
     </property>
     <row/>
     <row/>
     <row/>
     <row/>
     <row/>
+    <column/>
     <column/>
     <column/>
     <column/>
@@ -302,7 +326,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>782</width>
+     <width>906</width>
      <height>21</height>
     </rect>
    </property>

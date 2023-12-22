@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(782, 436)
+        MainWindow.resize(906, 436)
         MainWindow.setStyleSheet("background-color: rgb(185, 185, 185);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -28,7 +28,7 @@ class Ui_MainWindow(object):
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(10, 120, 321, 231))
+        self.groupBox.setGeometry(QtCore.QRect(10, 70, 321, 321))
         self.groupBox.setObjectName("groupBox")
         self.id = QtWidgets.QLineEdit(self.groupBox)
         self.id.setGeometry(QtCore.QRect(110, 30, 161, 20))
@@ -58,17 +58,23 @@ class Ui_MainWindow(object):
         self.nu.setGeometry(QtCore.QRect(190, 110, 82, 17))
         self.nu.setObjectName("nu")
         self.pushButton = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton.setGeometry(QtCore.QRect(110, 180, 161, 41))
+        self.pushButton.setGeometry(QtCore.QRect(110, 240, 161, 41))
         self.pushButton.setStyleSheet("")
         self.pushButton.setObjectName("pushButton")
         self.quet = QtWidgets.QPushButton(self.groupBox)
-        self.quet.setGeometry(QtCore.QRect(20, 180, 71, 41))
+        self.quet.setGeometry(QtCore.QRect(20, 240, 71, 41))
         self.quet.setObjectName("quet")
+        self.fb = QtWidgets.QLineEdit(self.groupBox)
+        self.fb.setGeometry(QtCore.QRect(110, 190, 161, 20))
+        self.fb.setObjectName("fb")
+        self.label_6 = QtWidgets.QLabel(self.groupBox)
+        self.label_6.setGeometry(QtCore.QRect(20, 190, 71, 16))
+        self.label_6.setObjectName("label_6")
         self.sql = QtWidgets.QTableWidget(self.centralwidget)
-        self.sql.setGeometry(QtCore.QRect(350, 130, 421, 191))
+        self.sql.setGeometry(QtCore.QRect(350, 130, 531, 191))
         self.sql.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.sql.setRowCount(5)
-        self.sql.setColumnCount(4)
+        self.sql.setColumnCount(5)
         self.sql.setObjectName("sql")
         self.sua = QtWidgets.QPushButton(self.centralwidget)
         self.sua.setGeometry(QtCore.QRect(350, 330, 75, 61))
@@ -97,7 +103,7 @@ class Ui_MainWindow(object):
         self.load1.setObjectName("load1")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 782, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 906, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -120,7 +126,7 @@ class Ui_MainWindow(object):
         self.nu.setText(_translate("MainWindow", "Nữ"))
         self.pushButton.setText(_translate("MainWindow", "Thêm"))
         self.quet.setText(_translate("MainWindow", "Quét"))
-        
+        self.label_6.setText(_translate("MainWindow", "URL Cá Nhân"))
 import hinhanh4
 
 
@@ -132,3 +138,4 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+
