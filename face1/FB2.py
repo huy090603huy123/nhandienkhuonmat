@@ -1,10 +1,11 @@
 import cv2
 import pyodbc
 import webbrowser
+from datetime import datetime
 conn_str = (
     r'DRIVER={ODBC Driver 17 for SQL Server};'
     r'SERVER=DESKTOP-2F3KP2O;'
-    r'DATABASE=Face;'
+    r'DATABASE=Face1;'
     r'UID=khuonmat;'
     r'PWD=123456;'
 )
@@ -31,6 +32,11 @@ def recognize_faces(frame):
 
             if facebook_url:
                 webbrowser.open_new(facebook_url)
+
+            ngaygio = datetime.now()
+            soluong = 1
+            insert_diemanh(user_id, ngaygio, soluong)
+
             cv2.destroyAllWindows()
             return True
     return False
@@ -55,6 +61,16 @@ def get_facebook_url(user_id):
     except pyodbc.Error as ex:
         print(f"Lỗi không có URL của người này trong CSDL: {ex}")
         return None
+
+def insert_diemanh(user_id, ngaygio, soluong):
+    cursor = conn.cursor()
+    try:
+        cmd = "INSERT INTO diemdanh (ID, ngaygio, soluong) VALUES (?, ?, ?)"
+        cursor.execute(cmd, (user_id, ngaygio, soluong))
+        conn.commit()
+        print("Đã Điểm Danh người đùng này:", user_id)
+    except pyodbc.Error as ex:
+        print(f"Lỗi khi thêm dữ liệu vào bảng diemanh: {ex}")
 
 def main():
     url="http://10.15.46.101:4747/video"

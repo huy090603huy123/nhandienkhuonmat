@@ -11,7 +11,7 @@ class ChatMainWindow(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.pushButton.clicked.connect(self.send_message)
-        openai.api_key = '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'
+        openai.api_key = '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'
         self.model = QStandardItemModel()
         self.listView.setModel(self.model)
         greeting = "Nhân Viên: Xin chào! Tôi Là Nhân Viên Ảo của Phần Mềm\n Nếu có Thắc Mắc Gì Về CAMERA Hãy Liên Hệ \n SDT:0523125184"

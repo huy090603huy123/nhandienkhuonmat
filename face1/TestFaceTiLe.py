@@ -10,7 +10,7 @@ class FaceRecognizer:
         self.fontface = cv2.FONT_HERSHEY_SIMPLEX
         self.fontscale = 1
         self.fontcolor = (203, 23, 252)
-        self.fontface = cv2.FONT_HERSHEY_DUPLEX
+        #self.fontface = cv2.FONT_HERSHEY_DUPLEX
 
         self.face_count = 0
         
@@ -33,17 +33,17 @@ class FaceRecognizer:
     def face(self):
         return self.face_count
     
-    def increment_face_count(self):
+    def dem(self):
         self.face_count += 1
 
 
-    def reset_face_count(self):
+    def reset(self):
         self.face_count = 0
 
     def get_profile(self, user_id):
         cmd = "SELECT * FROM People WHERE ID = ?"
-        self.cursor.execute(cmd, (user_id,))
-        return self.cursor.fetchone()
+        self.cursor.execute(cmd, (user_id,)) # so sánh user id nhập với trong CSDL iđ = user_id
+        return self.cursor.fetchone() # ko có Id giống là là none
 
     def recognize_faces(self):
         #url="http://192.168.1.67:4747/video"
@@ -53,14 +53,14 @@ class FaceRecognizer:
             ret, img = cam.read()
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             faces = self.face_cascade.detectMultiScale(gray, 1.3, 5) # Sử dụng Cascade Classifier  phát hiện khuôn mătJ
-            self.reset_face_count()
+            self.reset()
             for (x, y, w, h) in faces:
                 cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
-                user_id, conf = self.recognizer.predict(gray[y:y + h, x:x + w])
+                user_id, conf = self.recognizer.predict(gray[y:y + h, x:x + w]) # sử dụng lPPH đã được huấn luyện dự đoán id ứng với khuôn mawth 
                 profile = self.get_profile(user_id)                
-                accuracy_threshold = 60  
-                self.increment_face_count() 
-                if conf < accuracy_threshold and profile:
+                tile = 60  
+                self.dem() 
+                if conf < tile and profile:
                     
                     cv2.putText(img, "Ten: " + str(profile[1]), (x, y + h + 30), self.fontface, self.fontscale,
                                 self.fontcolor, 2)
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     database_config = {
         'driver': 'ODBC Driver 17 for SQL Server',
         'server': 'DESKTOP-2F3KP2O',
-        'database': 'Face',
+        'database': 'Face1',
         'uid': 'khuonmat',
         'pwd': '123456'
     }

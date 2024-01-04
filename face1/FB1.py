@@ -15,7 +15,7 @@ class khuonmat(QtWidgets.QMainWindow, Ui_MainWindow):
         self.conn_str = (
             r'DRIVER={ODBC Driver 17 for SQL Server};'
             r'SERVER=DESKTOP-2F3KP2O;'
-            r'DATABASE=Face;'
+            r'DATABASE=Face1;'
             r'UID=khuonmat;'
             r'PWD=123456;'
         )
@@ -148,6 +148,8 @@ class khuonmat(QtWidgets.QMainWindow, Ui_MainWindow):
         sample_num = 0
         while True:
             ret, img = self.cam.read()
+            if not ret:
+             break
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             faces = self.detector.detectMultiScale(gray, 1.3, 5)
             for (x, y, w, h) in faces:
@@ -156,7 +158,8 @@ class khuonmat(QtWidgets.QMainWindow, Ui_MainWindow):
                 img_filename = f"dataset/User.{user_id}.{str(sample_num)}.jpg"
                 cv2.imwrite(img_filename, gray[y:y + h, x:x + w])
                 cv2.imshow('Khuôn Mặt', img)
-            if cv2.waitKey(100) & 0xFF == ord('q'):
+            cv2.waitKey(50) 
+            if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
             elif sample_num > 250:
                 break

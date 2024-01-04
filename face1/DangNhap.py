@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtCore import QCoreApplication, QTimer
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from login import Ui_MainWindow
 import subprocess
@@ -15,24 +15,25 @@ class DangNhap(QtWidgets.QMainWindow):
         self.recognizer = cv2.face.LBPHFaceRecognizer_create()
         self.recognizer.read("recognizer/trainingData.yml")
         self.ui.quetmat.clicked.connect(self.login_process)
-        
-
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.timeout_handler)
     def capture_frame(self):
-        ret, img = self.cam.read()
+        ret, img = self.cam.read()             
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        self.cam.release()
+    
         return gray
         
     def login_process(self):   
         print("Vui Lòng Đợi Vài Phút Để Hệ Thống Quét")
+        self.timer.start(4000) 
         gray = self.capture_frame()
-        faces = self.face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5)
+        faces = self.face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5)     
         for (x, y, w, h) in faces:
             roi_gray = gray[y:y + h, x:x + w]
             user_id, conf = self.recognizer.predict(roi_gray)
             if conf < 60:           
-                subprocess.run(["python", r"D:\BAP TAP Python\face1\main.py"])               
-                self.close()               
+                subprocess.Popen(["python", r"D:\BAP TAP Python\face1\main.py"], creationflags=subprocess.CREATE_NO_WINDOW)              
+                self.close_program()            
                 return
             else:
                 QMessageBox.warning(self, "Lỗi", "Người Này Không Có trong Hệ Thống Dữ Liệu Để Đăng Nhập", QMessageBox.Ok)
@@ -40,10 +41,14 @@ class DangNhap(QtWidgets.QMainWindow):
         if self.cam.isOpened():
             self.cam.release()
         event.accept()
-
+    def timeout_handler(self):
+        self.timer.stop()
+        QMessageBox.warning(self, "Timeout", "Quét mặt đã quá thời gian. Vui lòng nhấn lại nút quét mặt.", QMessageBox.Ok)
+       
+    def close_program(self):
+       QCoreApplication.quit()
 if __name__ == "__main__":
     app = QApplication([])
     dangnhap_window = DangNhap()
     dangnhap_window.show()
     sys.exit(app.exec_())
- 
