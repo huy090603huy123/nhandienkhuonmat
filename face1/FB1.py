@@ -11,7 +11,7 @@ class khuonmat(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        # Connect to SQL Server
+      
         self.conn_str = (
             r'DRIVER={ODBC Driver 17 for SQL Server};'
             r'SERVER=DESKTOP-2F3KP2O;'
@@ -40,7 +40,6 @@ class khuonmat(QtWidgets.QMainWindow, Ui_MainWindow):
         self.Back.clicked.connect(self.quaylai)
         self.quet.clicked.connect(self.quetmat)
         self.load1.clicked.connect(self.load)
-
         self.hienthi()
 
     def quetmat(self):
@@ -64,14 +63,14 @@ class khuonmat(QtWidgets.QMainWindow, Ui_MainWindow):
         try:
             cmd = "SELECT * FROM People"
             cursor.execute(cmd)
-            rows = cursor.fetchall()
-            self.sql.clearContents()
-            self.sql.setRowCount(0)
-            self.sql.setRowCount(len(rows))
+            rows = cursor.fetchall() # lay kq từ con trỏ
+            self.sql.clearContents()# xoa lam moi bảng
+            self.sql.setRowCount(0) # ko hang nao co trc khi lam moi
+            self.sql.setRowCount(len(rows)) # đặt số dòng GUi bằng với số dong truy vấn ở trên 
             for i, row in enumerate(rows):
-                for j, value in enumerate(row):
+                for j, value in enumerate(row): # trả kq trong truy vấn ứng với cot và hang
                     item = QtWidgets.QTableWidgetItem(str(value))
-                    self.sql.setItem(i, j, item)
+                    self.sql.setItem(i, j, item) 
         except pyodbc.Error as ex:
             print(f"Lỗi lấy dữ liệu từ cơ sở dữ liệu: {ex}")
 
@@ -124,8 +123,12 @@ class khuonmat(QtWidgets.QMainWindow, Ui_MainWindow):
                 id = int(id_item.text())
                 cursor = self.conn.cursor()
                 try:
+                    cmd_diemdan = "DELETE FROM diemdanh WHERE ID = ?"
+                    cursor.execute(cmd_diemdan, (id,))
+                
                     cmd = "DELETE FROM People WHERE ID = ?"
                     cursor.execute(cmd, (id,))
+                    
                     self.conn.commit()
                     self.hienthi()
                 except pyodbc.Error as ex:
@@ -158,10 +161,10 @@ class khuonmat(QtWidgets.QMainWindow, Ui_MainWindow):
                 img_filename = f"dataset/User.{user_id}.{str(sample_num)}.jpg"
                 cv2.imwrite(img_filename, gray[y:y + h, x:x + w])
                 cv2.imshow('Khuôn Mặt', img)
-            cv2.waitKey(50) 
+            cv2.waitKey(20) 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
-            elif sample_num > 250:
+            elif sample_num > 100:
                 break
         self.cam.release()
         cv2.destroyAllWindows()

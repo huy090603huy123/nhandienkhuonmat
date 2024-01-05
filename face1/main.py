@@ -15,6 +15,7 @@ def homeui():
     ui.chatbox.clicked.connect(c)
     ui.thoat.clicked.connect(sys.exit)
     ui.url.clicked.connect(u)
+    ui.chamcong.clicked.connect(h)
     MainWindow.show()
 
 def x():   
@@ -32,6 +33,10 @@ def c():
 
 def u(): 
     subprocess.run(["python", r"D:\BAP TAP Python\face1\FB2.py"])
+
+def h(): 
+    subprocess.run(["python", r"D:\BAP TAP Python\face1\danhsach1.py"])
+
 
 homeui()
 sys.exit(app.exec_())

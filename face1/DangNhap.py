@@ -25,7 +25,7 @@ class DangNhap(QtWidgets.QMainWindow):
         
     def login_process(self):   
         print("Vui Lòng Đợi Vài Phút Để Hệ Thống Quét")
-        self.timer.start(4000) 
+        self.timer.start(5000) 
         gray = self.capture_frame()
         faces = self.face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5)     
         for (x, y, w, h) in faces:

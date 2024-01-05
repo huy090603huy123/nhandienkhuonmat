@@ -112,7 +112,7 @@ class Ui_MainWindow(object):
         self.label_5.setScaledContents(True)
         self.label_5.setObjectName("label_5")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(510, 310, 111, 101))
+        self.pushButton.setGeometry(QtCore.QRect(20, 440, 111, 101))
         self.pushButton.setStyleSheet("border-image: url(:/pic/Wikimania2023_Animated_Sticker_Camera.gif);\n"
 "")
         self.pushButton.setText("")
@@ -127,6 +127,11 @@ class Ui_MainWindow(object):
         self.url.setStyleSheet("border-image: url(:/pic/pngtree-man-holding-checklist-business-checkbox-paper-vector-png-image_10388326.png);")
         self.url.setText("")
         self.url.setObjectName("url")
+        self.chamcong = QtWidgets.QPushButton(self.centralwidget)
+        self.chamcong.setGeometry(QtCore.QRect(520, 310, 101, 101))
+        self.chamcong.setStyleSheet("border-image: url(:/pic/kisspng-timesheet-computer-icons-icon-design-time-icon-5aec5e186f83b9.1883554915254400244568 (1).png);")
+        self.chamcong.setText("")
+        self.chamcong.setObjectName("chamcong")
         self.camera.raise_()
         self.P1.raise_()
         self.P2.raise_()
@@ -138,6 +143,7 @@ class Ui_MainWindow(object):
         self.pushButton.raise_()
         self.chatbox.raise_()
         self.url.raise_()
+        self.chamcong.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -157,7 +163,6 @@ class Ui_MainWindow(object):
 "</style></head><body style=\" font-family:\'Palatino Linotype\'; font-size:24pt; font-weight:600; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:28pt; font-style:italic; color:#990000;\">TRANG CHỦ</span></p></body></html>"))
         self.label_4.setText(_translate("MainWindow", "Hình Người Quản Lý"))
-
 import hinhanh
 
 

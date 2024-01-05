@@ -250,8 +250,8 @@ border-image: url(:/pic/background-xanh-mau-nuoc-tuyet-dep-ks533.jpg);</string>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>310</y>
+      <x>20</x>
+      <y>440</y>
       <width>111</width>
       <height>101</height>
      </rect>
@@ -296,6 +296,22 @@ border-image: url(:/pic/background-xanh-mau-nuoc-tuyet-dep-ks533.jpg);</string>
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="chamcong">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>310</y>
+      <width>101</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/pic/kisspng-timesheet-computer-icons-icon-design-time-icon-5aec5e186f83b9.1883554915254400244568 (1).png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>camera</zorder>
    <zorder>P1</zorder>
    <zorder>P2</zorder>
@@ -307,6 +323,7 @@ border-image: url(:/pic/background-xanh-mau-nuoc-tuyet-dep-ks533.jpg);</string>
    <zorder>pushButton</zorder>
    <zorder>chatbox</zorder>
    <zorder>url</zorder>
+   <zorder>chamcong</zorder>
   </widget>
  </widget>
  <resources>
