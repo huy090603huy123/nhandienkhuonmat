@@ -90,7 +90,7 @@ Hệ thống này được phát triển nhằm tối ưu hóa quy trình tổ c
 ### 🎨 Hình ảnh thực tế 🎨
 ![alt text](image-1.png)
 ### 🎨 đăng nhập bằng mặt  🎨
-![alt text](image-2.png)
+![alt text](image-13.png)
 ### 🎨 Trang chủ 
 ![alt text](image-3.png)
 ### 🎨 Bảng thêm người 
