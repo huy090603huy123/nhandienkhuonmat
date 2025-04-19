@@ -79,10 +79,6 @@ Hệ thống này được phát triển nhằm tối ưu hóa quy trình tổ c
 * Nguyễn Hồng Hải Dương
 * Nguyễn Ngô Trúc Chi
 
-## 🙏 Lời Tri Ân 🙏
-
-* Thầy/Cô **Nguyễn Huy Cường** (Giảng viên hướng dẫn)
-* **Trường Đại học Công nghệ TP.HCM (HUTECH)**
 
 ## 📚 DEMO 📚
 ### 🎨 Kết nối IOT 🎨
